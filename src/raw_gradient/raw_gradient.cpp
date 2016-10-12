@@ -20,8 +20,8 @@ struct Pixel {
 };
 
 struct Point {
-    int x;
-    int y;
+    float x;
+    float y;
 };
 
 void plot(int y, int x, Pixel framebuffer[][SIZE]){
@@ -90,6 +90,32 @@ void Bresenham(int x1,
     }
 }
 
+Point lerp(Point A, Point B, float t){
+    Point temp;
+    temp.x = A.x + ((B.x - A.x) * t);
+    temp.y = A.y + ((B.y - A.y) * t);
+    return temp;
+}
+
+void Bezier(std::vector<Point> &out, std::vector<Point> in, float N){
+    Point A,B,C,X,Y,P;
+    float dt = 1/N;
+    int j = 0;
+    for(int i = 0; i < (in.size() - 1) / 3; i++) {
+        for (float t = 0; t <= 1; t += dt) {
+            A = lerp(in[j], in[j + 1], t);
+            B = lerp(in[j + 1], in[j + 2], t);
+            C = lerp(in[j + 2], in[j + 3], t);
+            X = lerp(A, B, t);
+            Y = lerp(B, C, t);
+            P = lerp(X, Y, t);
+            out.push_back(P);
+        }
+        j += 3;
+    }
+
+}
+
 int main() {
   // Initialize a framebuffer
   // NOTE: The framebuffer is allocated on the stack. For bigger sizes this should be changed to a heap allocation.
@@ -128,7 +154,7 @@ int main() {
     }*/
 
     //task 2: Bressenham algorithm
-
+/*
     int count = 5, i;
     //Point points[5];
     std::vector<Point> points (5);
@@ -150,6 +176,43 @@ int main() {
 
     for (i = 0; i < count; i++) {
         Bresenham(points[i].x,points[i].y,points[(i+1)%count].x,points[(i+1)%count].y,framebuffer);
+    }
+*/
+
+    //task 3: Bezier curve
+
+    std::vector<Point> in, out;
+    int alpha = -45, i;
+    for (i = 0; i < 4; i++) {
+        Point tmp;
+        tmp.x = 100 * sin(alpha*PI/180)+ SIZE/2;
+        tmp.y = -100* cos(alpha*PI/180)+ SIZE/2;
+        alpha =  (alpha + 90) % 360;
+        in.push_back(tmp);
+    }
+
+    Point start, end;
+    start = in[0];
+    end = in[3];
+    for(i = 0; i < 3; i++){
+        Point tmp;
+        tmp.x = end.x + ((start.x - end.x) * ((i + 1) / 3));
+        tmp.y = end.y + ((start.y - end.y) * ((i + 1) / 3));
+        in.push_back(tmp);
+    }
+
+    Bezier(out, in, 1000000);
+
+    for (unsigned int x = 0; x < SIZE; ++x) {
+        for (unsigned int y = 0; y < SIZE; ++y) {
+            framebuffer[x][y].r = 255;
+            framebuffer[x][y].g = 255;
+            framebuffer[x][y].b = 255;
+        }
+    }
+
+    for(i = 0; i < out.size(); i++){
+        plot(out[i].x, out[i].y, framebuffer);
     }
 
   // Save the raw image to a file
