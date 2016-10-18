@@ -84,7 +84,7 @@ int main() {
   auto quad = Mesh{program, "quad.obj"};
 
   // Load and bind texture
-  auto texture_id = LoadImage("result.rgb", SIZE, SIZE);
+  auto texture_id = LoadImage("lena.rgb", SIZE, SIZE);
   auto texture_attrib = program->GetUniformLocation("Texture");
   glUniform1i(texture_attrib, 0);
   glActiveTexture(GL_TEXTURE0 + 0);
