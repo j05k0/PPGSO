@@ -28,6 +28,8 @@ class Scene {
       double x, y;
       bool left, right;
     } mouse;
+
+    int numberOfFood;
 };
 typedef std::shared_ptr< Scene > ScenePtr;
 

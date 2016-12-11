@@ -1,17 +1,19 @@
 #include "generator.h"
-#include "asteroid.h"
+#include "food.h"
+#include "player.h"
 
 bool Generator::Update(Scene &scene, float dt) {
   // Accumulate time
   time += dt;
 
   // Add object to scene when time reaches certain level
-  if (time > .3) {
-    auto obj = AsteroidPtr(new Asteroid());
-    obj->position = this->position;
-    obj->position.x += Rand(-20, 20);
+  if (time > .01 && scene.numberOfFood < 10) {
+    auto obj = FoodPtr(new Food());
+    obj->position.x = Rand(-7.5f, 7.5f);
+    obj->position.y = Rand(-5.0f, 7.5f);
     scene.objects.push_back(obj);
     time = 0;
+    scene.numberOfFood++;
   }
 
   return true;

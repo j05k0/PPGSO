@@ -17,13 +17,10 @@ public:
 
   bool Update(Scene &scene, float dt) override;
   void Render(Scene &scene) override;
+  bool CollisionDetection(Scene &scene);
 
+  int score;
 private:
-  // Delay fire and fire rate
-  float fireDelay;
-  float fireRate;
-  glm::vec3 fireOffset;
-
   // Static resources (Shared between instances)
   static MeshPtr mesh;
   static ShaderPtr shader;

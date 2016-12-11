@@ -8,8 +8,7 @@ in vec2 FragTexCoord;
 // The final color
 out vec4 FragmentColor;
 
-
-
+// task 4: convolution filter using GLSL
 void main() {
     float convolution[25] =
     {
@@ -19,7 +18,7 @@ void main() {
       -1,  2,  2,  2, -1,
       -1, -1, -1, -1, -1,
     };
-    float factor = 1.0;
+    float factor = 5.0;
     float bias = 0.0;
    vec4 tempColor;
    float pixel = 1/512.0;

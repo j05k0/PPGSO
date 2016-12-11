@@ -147,12 +147,13 @@ set(GL_SCENE_SRC
         src/gl_scene/asteroid.cpp
         src/gl_scene/generator.cpp
         src/gl_scene/player.cpp
-        src/gl_scene/projectile.cpp
+        src/gl_scene/wall.cpp
+        src/gl_scene/food.cpp
         src/gl_scene/explosion.cpp
-        src/gl_scene/space.cpp)
+        src/gl_scene/world.cpp)
 generate_shaders(GL_SCENE_SHADERS
-        src/gl_scene/space_frag.glsl
-        src/gl_scene/space_vert.glsl
+        src/gl_scene/world_frag.glsl
+        src/gl_scene/world_vert.glsl
         src/gl_scene/object_frag.glsl
         src/gl_scene/object_vert.glsl
         src/gl_scene/explosion_frag.glsl
@@ -173,8 +174,26 @@ target_link_libraries(gl_framebuffer libppgso)
 install(TARGETS gl_framebuffer DESTINATION .)
 
 # ADD YOUR PROJECT HERE
-#set(MY_PROJECT_SRC src/my_project/my_project.cpp)
-#generate_shaders(MY_PROJECT_SHADERS src/my_project/my_project_vert.glsl src/my_project/my_project_frag.glsl)
+#set(MY_PROJECT_SRC
+#        src/my_project/my_project.cpp
+#        src/my_project/object.cpp
+#        src/my_project/scene.cpp
+#        src/my_project/camera.cpp
+#        src/my_project/asteroid.cpp
+#        src/my_project/generator.cpp
+#        src/my_project/player.cpp
+#        src/my_project/projectile.cpp
+#        src/my_project/explosion.cpp
+#        src/my_project/space.cpp)
+#generate_shaders(MY_PROJECT_SHADERS
+#        #src/my_project/my_project_vert.glsl
+#        #src/my_project/my_project_frag.glsl
+#        src/my_project/world_frag.glsl
+#        src/my_project/world_vert.glsl
+#        src/my_project/object_frag.glsl
+#        src/my_project/object_vert.glsl
+#        src/my_project/explosion_frag.glsl
+#        src/my_project/explosion_vert.glsl)
 #add_executable(my_project ${MY_PROJECT_SRC} ${MY_PROJECT_SHADERS})
 #target_link_libraries(my_project libppgso)
 #install (TARGETS my_project DESTINATION .)

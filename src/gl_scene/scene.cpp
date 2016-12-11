@@ -1,6 +1,8 @@
 #include "scene.h"
+#include "generator.h"
 
 Scene::Scene() {
+    numberOfFood = 0;
 }
 
 Scene::~Scene() {
@@ -16,9 +18,9 @@ void Scene::Update(float time) {
     // Update and remove from list if needed
     auto obj = i->get();
     if (!obj->Update(*this, time))
-      i = objects.erase(i); // NOTE: no need to call destructors as we store shared pointers in the scene
+        i = objects.erase(i); // NOTE: no need to call destructors as we store shared pointers in the scene
     else
-      ++i;
+        ++i;
   }
 }
 

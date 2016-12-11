@@ -19,5 +19,5 @@ void main() {
   float diffuse = max(dot(normal, lightDirection), 0.0f);
 
   // Lookup the color in Texture on coordinates given by fragTexCoord and apply diffuse lighting
-  FragmentColor = texture(Texture, FragTexCoord) * diffuse ;
+  FragmentColor = texture(Texture, FragTexCoord)  * diffuse ;
 }

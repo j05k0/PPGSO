@@ -44,7 +44,6 @@ void Bezier(std::vector<GLfloat> &out, std::vector<Point> in, float N){
     }
     j += 3;
   }
-
 }
 
 int main() {
@@ -159,12 +158,12 @@ int main() {
   // Main execution loop
   while (!glfwWindowShouldClose(window) ) {
     // Set gray background
-    glClearColor(1,0,0,0);
+    glClearColor(.8941,.3451,.9255,0);
     // Clear depth and color buffers
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     // Draw triangles using the program
-    glDrawArrays(GL_LINE_STRIP, 0, (GLsizei) (out.size() / 2));
+    glDrawArrays(GL_TRIANGLE_FAN, 0, (GLsizei) (out.size() / 2));
 
     // Display result
     glfwSwapBuffers(window);

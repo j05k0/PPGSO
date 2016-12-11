@@ -34,6 +34,7 @@ public:
   glm::vec3 rotation;
   glm::vec3 scale;
   glm::mat4 modelMatrix;
+  float radius;
 
 protected:
   // Generate modelMatrix from properties

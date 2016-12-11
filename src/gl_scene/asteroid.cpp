@@ -1,5 +1,4 @@
 #include "asteroid.h"
-#include "projectile.h"
 #include "explosion.h"
 
 #include "object_frag.h"
@@ -44,8 +43,7 @@ bool Asteroid::Update(Scene &scene, float dt) {
 
     // We only need to collide with asteroids and projectiles, ignore other objects
     auto asteroid = std::dynamic_pointer_cast<Asteroid>(obj);
-    auto projectile = std::dynamic_pointer_cast<Projectile>(obj);
-    if (!asteroid && !projectile) continue;
+    if (!asteroid) continue;
 
     // When colliding with other asteroids make sure the object is older than .5s
     // This prevents excessive collisions when asteroids explode.
@@ -57,9 +55,6 @@ bool Asteroid::Update(Scene &scene, float dt) {
 
       // Too small to split into pieces
       if (scale.y < 0.5) pieces = 0;
-
-      // The projectile will be destroyed
-      if (projectile) projectile->Destroy();
 
       // Generate smaller asteroids
       Explode(scene, (obj->position+position)/2.0f, (obj->scale+scale)/2.0f, pieces);

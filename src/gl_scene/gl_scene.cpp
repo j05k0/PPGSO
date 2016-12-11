@@ -1,7 +1,7 @@
 // Example gl_scene
 // - Demonstrates the concept of a scene
 // - Uses abstract object interface for Update and Render steps
-// - Creates a simple game scene with Player, Asteroid and Space objects
+// - Creates a simple game scene with Player, Asteroid and World objects
 // - Contains a generator object that does not render but adds Asteroids to the scene
 // - Some objects use shared resources and all object deallocations are handled automatically
 // - Controls: LEFT, RIGHT, "R" to reset, SPACE to fire
@@ -18,9 +18,11 @@
 #include "camera.h"
 #include "generator.h"
 #include "player.h"
-#include "space.h"
+#include "world.h"
+#include "wall.h"
+#include "food.h"
 
-const unsigned int SIZE = 512;
+const unsigned int SIZE = 900;
 
 Scene scene;
 
@@ -34,18 +36,38 @@ void InitializeScene() {
   scene.camera = camera;
 
   // Add space background
-  auto space = SpacePtr(new Space{});
-  scene.objects.push_back(space);
+  auto world = WorldPtr(new World{});
+  scene.objects.push_back(world);
 
   // Add generator to scene
   auto generator = GeneratorPtr(new Generator{});
-  generator->position.y = 10.0f;
   scene.objects.push_back(generator);
 
-  // Add player to the scene
-  auto player = PlayerPtr(new Player{});
-  player->position.y = -6;
-  scene.objects.push_back(player);
+    // Add player to the scene
+    auto player = PlayerPtr(new Player{});
+    player->position.y = -6;
+    scene.objects.push_back(player);
+
+    auto cube = WallPtr(new Wall());
+    cube->position.y = 5;
+    scene.objects.push_back(cube);
+
+    //Add walls to the scene
+//    auto wall1 = WallPtr(new Wall{});
+//    wall1->position.x = 5.0f;
+//    scene.objects.push_back(wall1);
+//
+//    auto wall2 = WallPtr(new Wall{});
+//    wall2->position.x = -5.0f;
+//    scene.objects.push_back(wall2);
+
+//    for(float x = 7.5f; x > -7.5f; x -= 1.5f){
+//        auto food = FoodPtr(new Food{});
+//        food->position.x = x;
+//        food->position.y = 7.5f;
+//        scene.objects.push_back(food);
+//    }
+
 }
 
 // Keyboard press event handler
